@@ -4,27 +4,34 @@ import {
   addJokeToLocalStorage,
   loadJokesFromLocalStorage,
   displaySavedJoke,
+  deleteButtonEvents,
 } from "./save.js";
+//Witz-Objekt global abspeichern
 
+let currentJoke = "";
 async function init() {
   loadJokesFromLocalStorage();
   loadJoke();
+  // deleteButtonEvents();
 }
 
 function loadJoke() {
   const loadButton = document.getElementById("load-button");
   loadButton.addEventListener("click", async () => {
-    const currentJoke = await getJoke();
-    renderJoke(currentJoke);
+    currentJoke = await getJoke();
+    console.log(currentJoke);
+    //ganzes Objekt wird überreicht, aber nur Text soll angezeigt werden
+    renderJoke(currentJoke.text);
     displaySaveButton(currentJoke);
   });
 }
 
-function renderJoke(currentJoke) {
-  const htmlString = `<p class="loaded-jokes__text">${currentJoke}</p>`;
-  document.querySelector(".loaded-jokes__text").innerText = currentJoke.text;
+function renderJoke(text) {
+  const jokeElement = document.querySelector(".loaded-jokes__text");
+  jokeElement.innerText = text;
 }
-//Save-Button wird beim erstmaligen Anklicken des Neuen-Witz-laden-BUttons dynamisch erzeugt
+
+//Save-Button wird beim erstmaligen Anklicken des Neuen-Witz-laden-Buttons dynamisch erzeugt
 function displaySaveButton(joke) {
   const buttonContainer = document.querySelector(".loaded-jokes__buttons");
   if (!document.getElementById("save-button")) {
@@ -50,12 +57,12 @@ function displaySaveButton(joke) {
     saveButtonEvents(joke);
   }
 }
-function saveButtonEvents(joke) {
+function saveButtonEvents() {
   const saveButton = document.getElementById("save-button");
   saveButton.addEventListener("click", () => {
-    addJokeToLocalStorage(joke);
-    displaySavedJoke(joke);
+    addJokeToLocalStorage(currentJoke);
+    displaySavedJoke(currentJoke);
   });
 }
-
+console.log();
 init();

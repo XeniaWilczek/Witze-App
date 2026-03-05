@@ -1,36 +1,33 @@
-import { getJoke } from "./fetch.js";
-let jokes = JSON.parse(localStorage.getItem("jokes")) || [];
-const jokeId = await getJoke().id;
+let jokes = [];
+
+//LocalStorage darf am Anfang nicht null oder undefined, sonst kann nichts hinzugefügt werden
+export function loadJokesFromLocalStorage() {
+  const jokesFromStorage = JSON.parse(localStorage.getItem("jokes")) || [];
+  const jokeContainer = document.querySelector(".stored-jokes");
+  jokes = jokesFromStorage;
+  //Jeder gespeicherte Witz soll unten angezeigt werden
+  jokes.forEach((joke) => {
+    displaySavedJoke(joke);
+  });
+}
 
 export function addJokeToLocalStorage(joke) {
   const alertText = document.getElementsByClassName("alert-text")[0];
-  const jokeContainer = document.querySelector(".stored-jokes");
-  //Witz hinzufügen zum Array "jokes"
-  jokes.push(joke);
-  //Array speichern
-  localStorage.setItem("jokes", JSON.stringify(jokes));
+  // Prüfen, ob id des aktuellen Witzes einer id im Array entspricht
+  const existingJoke = jokes.find((savedJoke) => savedJoke.id === joke.id);
 
-  if (alertText) {
-    alertText.remove();
-  } else {
-    alertText.add();
-    alertText.innerHTML = "Es wurde noch kein Witz gespeichert";
+  if (!existingJoke) {
+    jokes.push(joke);
+    localStorage.setItem("jokes", JSON.stringify(jokes));
   }
-  displaySavedJoke(joke);
 }
 
-//LocalStorage darf am Anfang nicht leer, sonst kann nichts hinzugefügt werden
-export function loadJokesFromLocalStorage() {
-  const jokesFromStorage = JSON.parse(localStorage.getItem("jokes"));
-  const jokeContainer = document.querySelector(".stored-jokes");
-}
-
-export function displaySavedJoke(savedJoke) {
+export function displaySavedJoke(joke) {
   const jokeContainer = document.querySelector(".stored-jokes");
   const htmlString = `<div class="stored-jokes__joke">
   <p class="alert-text"></p>
-          <p>${savedJoke.text}</p>
-          <button class="stored-jokes__button">
+          <p class="joke-text">${joke.text}</p>
+          <button id="${joke.id}" class="stored-jokes__button">
           <svg class="stored-jokes__svg"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -48,4 +45,43 @@ export function displaySavedJoke(savedJoke) {
            </button>
         </div>`;
   jokeContainer.innerHTML += htmlString;
+  deleteButtonEvents(joke);
+}
+
+//if (alertText) {
+// alertText.innerHTML = "";
+//  }
+// } else {
+//   alertText.innerhHTML = "Keine WItze gespeichert";
+//  }
+
+export function deleteJoke(id) {
+  //Löschen des angeklickten Witzes aus dem Array
+  // Prüfung: Ist es die id des zu löschenden Witzes?
+  const filteredJokes = jokes.filter((joke) => {
+    return joke.id !== id;
+  });
+
+  jokes = filteredJokes;
+  localStorage.setItem("jokes", JSON.stringify(jokes));
+
+  //Container leeren und nur verbliebene Witz-Texte anzeigen
+  const mainContainer = document.querySelector(".stored-jokes");
+  mainContainer.innerHTML = "";
+  jokes.forEach((joke) => displaySavedJoke(joke));
+}
+
+export function deleteButtonEvents(joke) {
+  // Alle Buttons mit der Klasse "stored-jokes__button" finden
+  console.log(joke);
+  const allDeleteButtons = document.querySelectorAll(`[id="${joke.id}"]`);
+
+  allDeleteButtons.forEach((deleteButton) => {
+    console.log(deleteButton);
+    deleteButton.addEventListener("click", () => {
+      // id des angeklickten Buttons nehmen
+      console.log(deleteButton);
+      deleteJoke(joke.id);
+    });
+  });
 }

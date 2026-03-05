@@ -72,7 +72,7 @@ export function deleteJoke(id) {
 }
 
 export function deleteButtonEvents(joke) {
-  // Alle Buttons mit der Klasse "stored-jokes__button" finden
+  // Alle delete-Buttons finden
   console.log(joke);
   const allDeleteButtons = document.querySelectorAll(`[id="${joke.id}"]`);
 

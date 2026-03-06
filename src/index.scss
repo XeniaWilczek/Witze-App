@@ -83,6 +83,15 @@ body {
   }
 }
 //id-Elemente nicht verschachteln (habebn hohe Spezifität)
+#joke-category {
+  color: white;
+  width: 25%;
+  border: none;
+  padding: 0.5rem;
+  background-color: $highlighted-background;
+  font-size: 1rem;
+}
+
 #load-button {
   color: $highlighted-background;
   background-color: $primary-color;

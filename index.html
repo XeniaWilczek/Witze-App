@@ -8,6 +8,17 @@
   <body>
     <div class="joke-app">
       <h1 class="joke-app__heading">Witze-App</h1>
+      <label for="joke-app__joke-category"
+        ><em>Wählen Sie eine Kategorie:</em></label
+      >
+      <select name="joke-app__joke-category" id="joke-category">
+        <option value=""></option>
+        <option value="Programmierwitze" id="developer-option">
+          Programmierwitze
+        </option>
+        <option value="Schulwitze" id="school-option">Schulwitze</option>
+        <option value="Scherzfragen" id="trick-option">Scherzfragen</option>
+      </select>
       <section class="loaded-jokes">
         <p id="button-instruction" class="italic-text">
           Button anklicken, um Witz zu laden.

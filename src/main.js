@@ -5,6 +5,7 @@ import {
   loadJokesFromLocalStorage,
   displaySavedJoke,
   deleteButtonEvents,
+  jokes,
 } from "./save.js";
 //Witz-Objekt global abspeichern
 
@@ -12,14 +13,15 @@ let currentJoke = "";
 async function init() {
   loadJokesFromLocalStorage();
   loadJoke();
-  // deleteButtonEvents();
 }
 
 function loadJoke() {
+  const buttonInstruction = document.getElementById("button-instruction");
   const loadButton = document.getElementById("load-button");
   loadButton.addEventListener("click", async () => {
+    //Hinweis "Button anklicken" soll verschwinden
+    buttonInstruction.innerHTML = "";
     currentJoke = await getJoke();
-    console.log(currentJoke);
     //ganzes Objekt wird überreicht, aber nur Text soll angezeigt werden
     renderJoke(currentJoke.text);
     displaySaveButton(currentJoke);
@@ -60,8 +62,15 @@ function displaySaveButton(joke) {
 function saveButtonEvents() {
   const saveButton = document.getElementById("save-button");
   saveButton.addEventListener("click", () => {
-    addJokeToLocalStorage(currentJoke);
-    displaySavedJoke(currentJoke);
+    const existingJoke = jokes.find(
+      (savedJoke) => savedJoke.id === currentJoke.id,
+    );
+    if (existingJoke) {
+      alert("Der Witz wurde bereits gespeichert!");
+    } else {
+      addJokeToLocalStorage(currentJoke);
+      displaySavedJoke(currentJoke);
+    }
   });
 }
 console.log();

@@ -1,9 +1,4 @@
-const developerJokes =
-  "https://witzapi.de/api/joke/?limit=1&category=programmierwitze&language=de";
-const trickQuestions =
-  "https://witzapi.de/api/joke/?limit=1&category=scherzfragen&language=de";
-const schoolJokes =
-  "https://witzapi.de/api/joke/?limit=1&category=schulwitze&language=de";
+export let selectedCategory = "";
 
 export async function getJoke() {
   const response = await fetch(selectedCategory);
@@ -14,4 +9,13 @@ export async function getJoke() {
   };
 
   return currentJoke;
+}
+
+export function changeCategory() {
+  const selectElement = document.getElementById("joke-category");
+  selectElement.addEventListener("change", (event) => {
+    if (selectElement) {
+      selectedCategory = event.target.value;
+    }
+  });
 }

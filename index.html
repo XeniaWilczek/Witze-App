@@ -8,16 +8,27 @@
   <body>
     <div class="joke-app">
       <h1 class="joke-app__heading">Witze-App</h1>
-      <label for="joke-app__joke-category"
-        ><em>Wählen Sie eine Kategorie:</em></label
-      >
+      <label for="joke-category"><em>Wählen Sie eine Kategorie:</em></label>
       <select name="joke-app__joke-category" id="joke-category">
         <option value=""></option>
-        <option value="Programmierwitze" id="developer-option">
+        <option
+          value="https://witzapi.de/api/joke/?limit=1&category=programmierwitze&language=de"
+          
+        >
           Programmierwitze
         </option>
-        <option value="Schulwitze" id="school-option">Schulwitze</option>
-        <option value="Scherzfragen" id="trick-option">Scherzfragen</option>
+        <option
+          value=" https://witzapi.de/api/joke/?limit=1&category=schulwitze&language=de""
+          
+        >
+          Schulwitze
+        </option>
+        <option
+          value="https://witzapi.de/api/joke/?limit=1&category=scherzfragen&language=de"
+          
+        >
+          Scherzfragen
+        </option>
       </select>
       <section class="loaded-jokes">
         <p id="button-instruction" class="italic-text">

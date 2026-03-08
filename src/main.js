@@ -1,10 +1,9 @@
 import "./index.scss";
-import { getJoke } from "./fetch.js";
+import { getJoke, changeCategory, selectedCategory } from "./fetch.js";
 import {
   addJokeToLocalStorage,
   loadJokesFromLocalStorage,
   displaySavedJoke,
-  deleteButtonEvents,
   jokes,
 } from "./save.js";
 //Witz-Objekt global abspeichern
@@ -18,9 +17,18 @@ async function init() {
 function loadJoke() {
   const buttonInstruction = document.getElementById("button-instruction");
   const loadButton = document.getElementById("load-button");
+  //Zuerst EventListener für Dropdown-Menü setzen
+  changeCategory();
+
   loadButton.addEventListener("click", async () => {
     //Hinweis "Button anklicken" soll verschwinden
     buttonInstruction.innerHTML = "";
+    //Prüfung, ob Kategorie ausgewählt wurde
+    if (!selectedCategory) {
+      alert("Bitte Kategorie auswählen!");
+      return;
+    }
+
     currentJoke = await getJoke();
     //ganzes Objekt wird überreicht, aber nur Text soll angezeigt werden
     renderJoke(currentJoke.text);

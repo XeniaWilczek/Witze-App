@@ -64,10 +64,10 @@ function displaySaveButton(joke) {
           </button>`;
     buttonContainer.insertAdjacentHTML("beforeend", htmlString);
     //saveButtonEvents() erst danach aufrufen -->zuerst muss der save-Button existieren
-    saveButtonEvents(joke);
   }
+  saveButtonEvents(joke);
 }
-function saveButtonEvents() {
+function saveButtonEvents(currentJoke) {
   const saveButton = document.getElementById("save-button");
   saveButton.addEventListener("click", () => {
     const existingJoke = jokes.find(

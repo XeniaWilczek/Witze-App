@@ -10,6 +10,7 @@ import {
 
 let currentJoke = "";
 async function init() {
+  selectDisplayMode();
   loadJokesFromLocalStorage();
   loadJoke();
 }
@@ -28,7 +29,7 @@ function loadJoke() {
       alert("Bitte Kategorie auswählen!");
       return;
     }
-
+    //getJoke wird mit zuvor gestzter Kategorie ausgeführt
     currentJoke = await getJoke();
     //ganzes Objekt wird überreicht, aber nur Text soll angezeigt werden
     renderJoke(currentJoke.text);
@@ -83,4 +84,18 @@ function saveButtonEvents() {
   });
 }
 
+function selectDisplayMode() {
+  const lightModeButton = document.getElementById("light-mode-button");
+  const darkModeButton = document.getElementById("dark-mode-button");
+  const body = document.body;
+  lightModeButton.addEventListener("click", () => {
+    body.classList.remove("dark-mode-colors");
+    body.classList.add("light-mode-colors");
+  });
+  darkModeButton.addEventListener("click", () => {
+    body.classList.remove("light-mode-colors");
+    body.classList.add("dark-mode-colors");
+  });
+}
+console.log(window.matchMedia("(prefers-color-scheme: light)").matches);
 init();

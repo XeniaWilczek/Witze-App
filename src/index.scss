@@ -1,58 +1,110 @@
-@use "variables" as *;
-@use "sass:color";
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lobster&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik+Scribble&family=Style+Script&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lobster&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik+Scribble&family=Style+Script&display=swap");
 
-@mixin scaleColor($color) {
-  background-color: color.scale($color, $lightness: -20%);
-  color: $highlighted-background;
-  border-color: color.scale($color, $lightness: -20%);
+@mixin scaleColor() {
+  filter: brightness(80%);
+  color: var(--highlighted-background);
+  border-color: var(--primary-color);
 }
 
 * {
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #04da4b;
+  --button-color: #f02f2f;
+  --background-color: #333;
+  --highlighted-background: #444;
+  --color: white;
 }
 
 body {
   font-family: "Inter", system-ui;
-  color: white;
+  color: var(--color);
   font-size: 1rem;
   min-height: 100vh;
   width: 100vw;
-  background-color: $background-color;
   overflow-y: scroll;
+  background-color: var(--background-color);
 }
 
-.joke-app {
+.main-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 3rem;
-  min-height: 100vh;
-  width: 50vw;
-  margin: 0 auto;
+  gap: 2rem;
+  height: auto;
+  width: 100vw;
+  padding: 2rem;
 
-  &__heading {
-    font-size: 3rem;
-    font-family: "Rubik Scribble", system-ui;
-    color: $primary-color;
+  &__joke-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 3rem;
+    min-height: 100vh;
+    width: 60vw;
+    padding-top: 2rem;
   }
+}
+
+.display-mode {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2rem;
+  min-height: 100vh;
+  width: 20vw;
+  padding-top: 5rem;
+  &__button {
+    height: 80px;
+    width: 80px;
+    background-color: var(--highlighted-background);
+    border: 1px solid var(--highlighted-background);
+    border-radius: 5px;
+    &:hover {
+      cursor: pointer;
+      background-color: var(--primary-color);
+    }
+  }
+
+  &__svg {
+    height: 40px;
+    width: 40px;
+    color: white;
+  }
+}
+
+.joke-container {
+  &__heading {
+    font-size: 4rem;
+    font-family: "Rubik Scribble", system-ui;
+    color: var(--primary-color);
+    padding-top: 2rem;
+  }
+  &__category-label {
+    font-size: 1.5rem;
+  }
+
   &__second-heading {
     font-family: "Rubik Scribble", system-ui;
-    font-size: 1.5rem;
+    font-size: 2rem;
     align-self: flex-start;
   }
 }
+
 //Neuer Block beginnt
 .loaded-jokes {
-  background-color: $highlighted-background;
+  background-color: var(--highlighted-background);
   padding: 1rem;
+  height: auto;
   width: 100%;
-  position: sticky;
-  top: 1rem;
-  z-index: 100;
 
   &__text {
     text-align: center;
@@ -73,43 +125,46 @@ body {
     gap: 0.5rem;
     border-radius: 10px;
     transition: all 0.2s ease-in-out;
-    border: 1px solid $primary-color;
+    border: 1px solid var(--primary-color);
     font-size: 1rem;
     font-family: "Inter", system-ui;
     height: 60px;
     max-width: 50%;
-    box-sizing: border-box;
+
     padding: 1rem;
   }
 }
 //id-Elemente nicht verschachteln (habebn hohe Spezifität)
 #joke-category {
-  color: white;
-  width: 25%;
+  color: var(--color);
+  min-width: 25%;
   border: none;
   padding: 0.5rem;
-  background-color: $highlighted-background;
+  background-color: var(--highlighted-background);
   font-size: 1rem;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 #load-button {
-  color: $highlighted-background;
-  background-color: $primary-color;
+  color: var(--highlighted-background);
+  background-color: var(--primary-color);
 
   &:hover {
-    color: $primary-color;
-    @include scaleColor($primary-color);
+    color: var(--primary-color);
+    @include scaleColor;
     cursor: pointer;
   }
 }
 
 #save-button {
-  color: $primary-color;
-  background-color: $highlighted-background;
+  color: var(--primary-color);
+  background-color: var(--highlighted-background);
 
   &:hover {
-    color: $highlighted-background;
-    background-color: $primary-color;
+    color: var(--highlighted-background);
+    background-color: var(--primary-color);
     cursor: pointer;
   }
 
@@ -135,11 +190,11 @@ body {
     gap: 2rem;
     height: auto;
     width: 100%;
-    background-color: $highlighted-background;
+    background-color: var(--highlighted-background);
     padding: 0.5rem;
   }
   &__button {
-    background-color: $highlighted-background;
+    background-color: var(--highlighted-background);
     border: none;
 
     &:hover {
@@ -150,7 +205,7 @@ body {
   &__svg {
     height: 3rem;
     width: 3rem;
-    background-color: $button-color;
+    background-color: var(--button-color);
     border-radius: 5px;
     padding: 3px;
     color: white;
@@ -199,5 +254,45 @@ body {
     .stored-jokes {
       gap: 1.5rem;
     }
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --primary-color: #4f7942;
+    --button-color: #ed9121;
+    --background-color: #e3c598;
+    --highlighted-background: #f5deb3;
+    --color: black;
+    .display-mode__svg,
+    .stored-jokes__svg {
+      color: black;
+    }
+  }
+}
+
+//Klasse für Light-Mode-Farben
+.light-mode-colors {
+  --primary-color: #4f7942;
+  --button-color: #ed9121;
+  --background-color: #e3c598;
+  --highlighted-background: #f5deb3;
+  --color: black;
+  .display-mode__svg,
+  .stored-jokes__svg {
+    color: black;
+  }
+}
+
+//Klasse für Dark-Mode-Farben (soll man mauell setzen können, selbst wenn standardmäßig Light-Mode eingestellt ist)
+.dark-mode-colors {
+  --primary-color: #04da4b;
+  --button-color: #f02f2f;
+  --background-color: #333;
+  --highlighted-background: #444;
+  --color: white;
+  .display-mode__svg,
+  .stored-jokes__svg {
+    color: white;
   }
 }

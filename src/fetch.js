@@ -14,6 +14,7 @@ export async function getJoke() {
 export function changeCategory() {
   const selectElement = document.getElementById("joke-category");
   selectElement.addEventListener("change", (event) => {
+    //eigentlich überflüssig, aber wenn selectElement nicht exisitert, stürt das System ab
     if (selectElement) {
       selectedCategory = event.target.value;
     }

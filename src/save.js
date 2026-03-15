@@ -1,6 +1,6 @@
 export let jokes = [];
 
-//LocalStorage darf am Anfang nicht null oder undefined, sonst kann nichts hinzugefügt werden
+//LocalStorage darf am Anfang nicht null oder undefined sein, sonst kann nichts hinzugefügt werden
 export function loadJokesFromLocalStorage() {
   const alertText = document.getElementById("alert-text");
   const jokesFromStorage = JSON.parse(localStorage.getItem("jokes")) || [];
@@ -57,8 +57,6 @@ export function deleteJoke(id) {
   const filteredJokes = jokes.filter((joke) => {
     return joke.id !== id;
   });
-  console.log(id);
-  console.log(filteredJokes);
   jokes = filteredJokes;
 
   localStorage.setItem("jokes", JSON.stringify(jokes));
@@ -73,7 +71,6 @@ export function deleteJoke(id) {
 
 export function deleteButtonEvents() {
   const allDeleteButtons = document.querySelectorAll(".stored-jokes__button");
-  console.log(allDeleteButtons);
   allDeleteButtons.forEach((deleteButton) =>
     deleteButton.addEventListener("click", () => {
       deleteJoke(Number(deleteButton.id));

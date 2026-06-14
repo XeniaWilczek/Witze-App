@@ -1,14 +1,15 @@
 import "./index.scss";
-import { getJoke, changeCategory, selectedCategory } from "./fetch.js";
+import { getJoke, changeCategory, getSelectedCategory } from "./fetch.js";
 import {
   addJokeToLocalStorage,
   loadJokesFromLocalStorage,
   displaySavedJoke,
   jokes,
 } from "./save.js";
-//Witz-Objekt global abspeichern
 
-let currentJoke = "";
+//Witz-Objekt global abspeichern
+let currentJoke = null;
+
 async function init() {
   selectDisplayMode();
   loadJokesFromLocalStorage();
@@ -18,21 +19,28 @@ async function init() {
 function loadJoke() {
   const buttonInstruction = document.getElementById("button-instruction");
   const loadButton = document.getElementById("load-button");
+
   //Zuerst EventListener für Dropdown-Menü setzen
   changeCategory();
 
   loadButton.addEventListener("click", async () => {
     //Hinweis "Button anklicken" soll verschwinden
     buttonInstruction.innerHTML = "";
+
     //Prüfung, ob Kategorie ausgewählt wurde
-    if (!selectedCategory) {
+    const category = getSelectedCategory();
+    if (!category) {
       alert("Bitte Kategorie auswählen!");
       return;
     }
-    //getJoke wird mit zuvor gestzter Kategorie ausgeführt
+
+    //getJoke wird mit zuvor gesetzter Kategorie ausgeführt
     currentJoke = await getJoke();
+
     //ganzes Objekt wird überreicht, aber nur Text soll angezeigt werden
     renderJoke(currentJoke.text);
+
+    //Save-Button anzeigen oder aktualisieren
     displaySaveButton(currentJoke);
   });
 }
@@ -45,7 +53,10 @@ function renderJoke(text) {
 //Save-Button wird beim erstmaligen Anklicken des Neuen-Witz-laden-Buttons dynamisch erzeugt
 function displaySaveButton(joke) {
   const buttonContainer = document.querySelector(".loaded-jokes__buttons");
-  if (!document.getElementById("save-button")) {
+  let saveButton = document.getElementById("save-button");
+
+  //Falls der Button noch nicht existiert → erzeugen
+  if (!saveButton) {
     const htmlString = `<button class="loaded-jokes__button" id="save-button">
             Witz speichern
             <svg
@@ -64,38 +75,38 @@ function displaySaveButton(joke) {
             </svg>
           </button>`;
     buttonContainer.insertAdjacentHTML("beforeend", htmlString);
-    //saveButtonEvents() erst danach aufrufen -->zuerst muss der save-Button existieren
-    saveButtonEvents();
+    saveButton = document.getElementById("save-button");
   }
-}
 
-function saveButtonEvents() {
-  const saveButton = document.getElementById("save-button");
-  saveButton.addEventListener("click", () => {
-    const existingJoke = jokes.find(
-      (savedJoke) => savedJoke.id === currentJoke.id,
-    );
+  //saveButtonEvents() entfällt → stattdessen Event Listener jedes Mal neu setzen
+  saveButton.onclick = () => {
+    const existingJoke = jokes.find((savedJoke) => savedJoke.id === joke.id);
+
     if (existingJoke) {
       alert("Der Witz wurde bereits gespeichert!");
     } else {
-      addJokeToLocalStorage(currentJoke);
-      displaySavedJoke(currentJoke);
+      addJokeToLocalStorage(joke);
+      displaySavedJoke(joke);
     }
-  });
+  };
 }
 
 function selectDisplayMode() {
   const lightModeButton = document.getElementById("light-mode-button");
   const darkModeButton = document.getElementById("dark-mode-button");
   const body = document.body;
+
   lightModeButton.addEventListener("click", () => {
     body.classList.remove("dark-mode-colors");
     body.classList.add("light-mode-colors");
   });
+
   darkModeButton.addEventListener("click", () => {
     body.classList.remove("light-mode-colors");
     body.classList.add("dark-mode-colors");
   });
 }
+
 console.log(window.matchMedia("(prefers-color-scheme: light)").matches);
+
 init();

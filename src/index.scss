@@ -1,9 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lobster&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik+Scribble&family=Style+Script&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lobster&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik+Scribble&family=Style+Script&display=swap");
 
 @mixin scaleColor() {
   filter: brightness(80%);
-  color: var(--highlighted-background);
   border-color: var(--primary-color);
 }
 
@@ -26,45 +24,36 @@ body {
   color: var(--color);
   font-size: 1rem;
   min-height: 100vh;
-  width: 100vw;
+  width: 100%;
   overflow-y: scroll;
   background-color: var(--background-color);
 }
 
 .main-container {
   display: flex;
-  flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   gap: 2rem;
-  height: auto;
-  width: 100vw;
   padding: 2rem;
+  width: 100%;
 
   &__joke-container {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
     align-items: center;
     gap: 3rem;
-    min-height: 100vh;
-    width: 60vw;
+    width: 60%;
     padding-top: 2rem;
   }
 }
 
 .display-mode {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 2rem;
-  min-height: 100vh;
-  width: 20vw;
-  padding-top: 5rem;
   position: fixed;
   top: 1rem;
   right: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   z-index: 1000;
 
   &__button {
@@ -73,6 +62,8 @@ body {
     background-color: var(--highlighted-background);
     border: 1px solid var(--highlighted-background);
     border-radius: 5px;
+    transition: background-color 0.2s ease-in-out;
+
     &:hover {
       cursor: pointer;
       background-color: var(--primary-color);
@@ -82,7 +73,7 @@ body {
   &__svg {
     height: 40px;
     width: 40px;
-    color: white;
+    color: var(--color);
   }
 }
 
@@ -93,6 +84,7 @@ body {
     color: var(--primary-color);
     padding-top: 2rem;
   }
+
   &__category-label {
     font-size: 1.5rem;
   }
@@ -100,46 +92,37 @@ body {
   &__second-heading {
     font-family: "Rubik Scribble", system-ui;
     font-size: 2rem;
-    align-self: flex-start;
+    align-self: center;
   }
 }
 
-//Neuer Block beginnt
-.loaded-jokes {
-  background-color: var(--highlighted-background);
-  padding: 1rem;
-  height: auto;
+.loaded-jokes__buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
   width: 100%;
-
-  &__text {
-    text-align: center;
-  }
-  &__buttons {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 1rem;
-    width: 100%;
-  }
-  &__button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
-    border-radius: 10px;
-    transition: all 0.2s ease-in-out;
-    border: 1px solid var(--primary-color);
-    font-size: 1rem;
-    font-family: "Inter", system-ui;
-    height: 60px;
-    max-width: 50%;
-
-    padding: 1rem;
-  }
 }
-//id-Elemente nicht verschachteln (habebn hohe Spezifität)
+
+.loaded-jokes__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 10px;
+  transition: all 0.2s ease-in-out;
+  border: 1px solid var(--primary-color);
+  font-size: 1rem;
+  font-family: "Inter", system-ui;
+  height: 60px;
+  padding: 1rem;
+  width: auto;
+  min-width: 200px;
+  margin: 0 auto;
+}
+
 #joke-category {
   color: var(--color);
   min-width: 25%;
@@ -147,6 +130,7 @@ body {
   padding: 0.5rem;
   background-color: var(--highlighted-background);
   font-size: 1rem;
+
   &:hover {
     cursor: pointer;
   }
@@ -157,8 +141,9 @@ body {
   background-color: var(--primary-color);
 
   &:hover {
-    color: var(--primary-color);
     @include scaleColor;
+    color: var(--primary-color);
+    background-color: var(--highlighted-background);
     cursor: pointer;
   }
 }
@@ -179,12 +164,10 @@ body {
   }
 }
 
-//Neuer Block beginnt
 .stored-jokes {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  align-items: center; // <-- sorgt für echte Zentrierung
   gap: 1rem;
   width: 100%;
 
@@ -193,11 +176,13 @@ body {
     justify-content: space-between;
     align-items: center;
     gap: 2rem;
-    height: auto;
-    width: 100%;
+    width: 80%;
+    max-width: 600px;
     background-color: var(--highlighted-background);
     padding: 0.5rem;
+    border-radius: 5px;
   }
+
   &__button {
     background-color: var(--highlighted-background);
     border: none;
@@ -226,39 +211,27 @@ body {
     font-size: 1.5rem;
   }
 
-  .joke-app__heading {
-    font-size: 4rem;
-  }
-
-  .joke-app__second-heading {
-    font-size: 3rem;
-  }
-
   .loaded-jokes__buttons {
     flex-direction: row;
     gap: 1.5rem;
-    margin-top: 1.5rem;
-
-    &__button {
-      font-size: 1.2rem;
-    }
   }
 
-  @media only screen and (min-width: 1000px) {
-    .loaded-jokes__buttons {
-      flex-direction: row;
-      margin-top: 2rem;
-      gap: 2rem;
-    }
+  .loaded-jokes__button {
+    font-size: 1.2rem;
+  }
+}
 
-    .loaded-jokes__button {
-      font-size: 1.2rem;
-      padding: 2rem;
-    }
+@media only screen and (min-width: 1000px) {
+  .loaded-jokes__buttons {
+    gap: 2rem;
+  }
 
-    .stored-jokes {
-      gap: 1.5rem;
-    }
+  .loaded-jokes__button {
+    padding: 2rem;
+  }
+
+  .stored-jokes {
+    gap: 1.5rem;
   }
 }
 
@@ -269,33 +242,34 @@ body {
     --background-color: #e3c598;
     --highlighted-background: #f5deb3;
     --color: black;
-    .display-mode__svg,
-    .stored-jokes__svg {
-      color: black;
-    }
   }
-}
 
-//Klasse für Light-Mode-Farben
-.light-mode-colors {
-  --primary-color: #4f7942;
-  --button-color: #ed9121;
-  --background-color: #e3c598;
-  --highlighted-background: #f5deb3;
-  --color: black;
   .display-mode__svg,
   .stored-jokes__svg {
     color: black;
   }
 }
 
-//Klasse für Dark-Mode-Farben (soll man mauell setzen können, selbst wenn standardmäßig Light-Mode eingestellt ist)
+.light-mode-colors {
+  --primary-color: #4f7942;
+  --button-color: #ed9121;
+  --background-color: #e3c598;
+  --highlighted-background: #f5deb3;
+  --color: black;
+
+  .display-mode__svg,
+  .stored-jokes__svg {
+    color: black;
+  }
+}
+
 .dark-mode-colors {
   --primary-color: #04da4b;
   --button-color: #f02f2f;
   --background-color: #333;
   --highlighted-background: #444;
   --color: white;
+
   .display-mode__svg,
   .stored-jokes__svg {
     color: white;

@@ -2,7 +2,7 @@
 
 ![Projekt-Vorschau](public/images/previewWitzeApp.png)
 
-Eine responsive Webanwendung, die unterhaltsame Witze von einer öffentlichen API abruft und dynamisch darstellt. Die App verfügt über ein hochflexibles Farbschema, welches sowohl automatisiert auf die Systemeinstellungen des Endgeräts reagiert als auch eine manuelle Steuerung durch den Benutzer ermöglicht.
+Eine responsive Webanwendung, die Witze von einer öffentlichen API abruft und dynamisch darstellt. Die App verfügt über ein flexibles Farbschema, welches sowohl automatisiert auf die Systemeinstellungen des Endgeräts reagiert als auch eine manuelle Steuerung durch den Benutzer ermöglicht.
 
 ## Voraussetzungen
 Für die lokale Ausführung und das Kompilieren des Projekts werden folgende Komponenten benötigt:

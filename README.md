@@ -2,7 +2,7 @@
 
 ![Projekt-Vorschau](public/images/previewWitzeApp.png)
 
-Eine responsive Webanwendung, die Witze von einer öffentlichen API abruft und dynamisch darstellt. Die App verfügt über ein flexibles Farbschema, welches sowohl automatisiert auf die Systemeinstellungen des Endgeräts reagiert als auch eine manuelle Steuerung durch den Benutzer ermöglicht.
+Eine responsive Webanwendung, die Witze von einer öffentlichen API abruft und dynamisch darstellt. Die App verfügt über ein flexibles Farbschema, welches sowohl automatisiert auf die Systemeinstellungen des Endgeräts reagiert, als auch eine manuelle Steuerung durch den Benutzer ermöglicht.
 
 ## Voraussetzungen
 Für die lokale Ausführung und das Kompilieren des Projekts werden folgende Komponenten benötigt:
@@ -15,8 +15,8 @@ Für die lokale Ausführung und das Kompilieren des Projekts werden folgende Kom
 * **SCSS:** Modulares Styling unter Verwendung von Variablen, verschachtelten Selektoren (Nesting) und einem `@mixin` zur Standardisierung von Hover-Zuständen mit Helligkeitsfiltern.
 * **Google Fonts:** Einbindung der Schriftarten Inter für Fließtexte sowie Rubik Scribble für markante Überschriften.
 * **Vite:** Frontend-Build-Tool für eine performante Entwicklungsumgebung und die Paketierung im Produktionsmodus.
-* **JavaScript (Vanilla JS):** Asynchrone API-Anbindung (Fetch API) mittels ES-Modulen (`import/export`), Fehlerbehandlung via `try-catch`, permanente Datenhaltung im `localStorage` sowie dynamische DOM-Generierung inklusive isoliertem Event-Binding.
-
+* **JavaScript (Vanilla JS):** Asynchrone API-Abrufe mit der Fetch-API und ES-Modulen, Fehlerbehandlung durch try-catch, dauerhafte Datenspeicherung im Local Storage sowie dynamische DOM-Inhalte mit isolierten Events.
+* 
 ## Installation
 Klonen Sie das Projekt auf Ihren lokalen Computer und installieren Sie die erforderlichen Abhängigkeiten über den Paketmanager:
 
@@ -50,9 +50,6 @@ Die Anwendung kann für die Veröffentlichung gebaut und statisch gehostet werde
    npm run build
    ```
 2. Der Inhalt dieses Ordners kann anschließend direkt über GitHub Pages, Vercel oder Netlify live schaltet werden.
-
-## Mitwirken
-Da dies ein persönliches Projekt oder Portfolio-Projekt ist, werden aktuell keine Pull Requests oder externen Code-Beiträge entgegengenommen. Feedback oder Fragen können Sie mir jedoch gerne per E-Mail senden.
 
 ## Lizenz
 Dieses Projekt wurde von Xenia Wilczek erstellt. Alle Rechte an Code und Design vorbehalten (All Rights Reserved).
